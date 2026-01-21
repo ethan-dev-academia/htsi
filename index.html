@@ -78,6 +78,7 @@
 
         .nav-links {
             display: flex;
+            align-items: center;
             gap: 2rem;
             font-size: 0.95rem;
             font-weight: 500;
@@ -263,7 +264,7 @@
 
         .mentor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -273,17 +274,245 @@
             border: 1px solid var(--border);
             padding: 1.5rem;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .mentor-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(128, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .mentor-card:hover::after {
+            content: 'Click to learn more';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            border-radius: 3px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            animation: fadeInTab 0.2s ease;
+        }
+
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .mentor-avatar {
             width: 80px;
             height: 80px;
-            background: #ddd;
             border-radius: 50%;
             margin: 0 auto 1rem;
-            /* Placeholder pattern */
-            background-image: radial-gradient(#999 15%, transparent 16%), radial-gradient(#999 15%, transparent 16%);
-            background-size: 10px 10px;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        .mentor-title {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        .mentor-details {
+            display: none;
+            text-align: left;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .mentor-details.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mentor-details h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .mentor-details p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .mentor-details ul {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            padding-left: 1.2rem;
+        }
+
+        .mentor-details ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .mentor-linkedin {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: var(--primary);
+            font-size: 0.85rem;
+            text-decoration: underline;
+        }
+
+        .mentor-linkedin:hover {
+            color: var(--primary-dark);
+        }
+
+        .expand-indicator {
+            display: inline-block;
+            margin-left: 0.5rem;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Modal/Popup Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            max-width: 1000px;
+            width: 90%;
+            max-height: 85vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            border: 2px solid var(--border);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #666;
+            transition: all 0.2s;
+            z-index: 1;
+        }
+
+        .modal-close:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .modal-body {
+            padding: 2.5rem;
+            overflow-y: auto;
+        }
+
+        .modal-body h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .modal-body p {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .modal-body ul {
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-body ul li {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .modal-cta {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .modal-cta:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (max-width: 900px) {
+            .modal-content {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+            
+            .modal-video-placeholder {
+                height: 250px;
+                border-radius: 8px 8px 0 0;
+            }
         }
 
         /* --- FAQ (Accordion) --- */
@@ -320,6 +549,43 @@
 
         .faq-item.active .faq-answer { display: block; }
         .faq-item.active .faq-question { color: var(--primary); }
+
+        /* Highlighted FAQ Item */
+        .faq-item.highlighted {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 0 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq-item.highlighted::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(128, 0, 0, 0.1) 50%,
+                transparent 70%
+            );
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .faq-item.highlighted .faq-question {
+            font-weight: 700;
+            color: var(--primary);
+        }
 
         /* --- Apply Section (Critical Workflow) --- */
         .apply-section {
@@ -403,6 +669,36 @@
 </head>
 <body>
 
+    <!-- Modal Popup -->
+    <div id="cohortModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            
+            <div class="modal-video-placeholder">
+                📹
+            </div>
+            
+            <div class="modal-body">
+                <h2>Spring 2026 Online Cohort</h2>
+                <p>We're excited to announce HTSI's first-ever <strong>global online cohort</strong>, launching Spring 2026!</p>
+                
+                <p>This program will be officially unveiled at the <strong>UNESCO Learning Planet 2026 Conference</strong> in Paris, France—bringing the HTSI experience to ambitious students worldwide.</p>
+                
+                <p><strong>What you get:</strong></p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem; line-height: 1.8;">
+                    <li>Same mentorship and resources as our in-person program</li>
+                    <li>Access to industry experts from FAANG, top startups, and the UN</li>
+                    <li>Weekly virtual sessions and build sprints</li>
+                    <li>Global community of student founders</li>
+                </ul>
+                
+                <p style="font-style: italic; color: var(--primary);">Open to students from any school, anywhere in the world.</p>
+                
+                <a href="#online" class="modal-cta" onclick="closeModal()">Learn More →</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Nav -->
     <nav class="navbar">
         <a href="#" class="logo">
@@ -413,6 +709,7 @@
             <a href="#about">About</a>
             <a href="#process">Process</a>
             <a href="#mentors">People</a>
+            <a href="#" onclick="openModal(); return false;">Online Cohort</a>
             <a href="#faq">FAQ</a>
             <a href="#apply" class="cta-button">Apply</a>
         </div>
@@ -452,14 +749,10 @@
         <!-- First Batch Stats Banner -->
         <section style="background: var(--primary); color: white; padding: 3rem 5%; text-align: center; margin-bottom: 4rem;">
             <div style="max-width: 1200px; margin: 0 auto;">
-                <p style="text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; opacity: 0.8; margin-bottom: 0.5rem;">Batch 1 (Fall 2026)</p>
-                <div style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; font-family: 'Space Grotesk'; line-height: 1;">[TBD]%</div>
+                <p style="text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; opacity: 0.8; margin-bottom: 0.5rem;">Batch 1 (Spring 2026)</p>
+                <div style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; font-family: 'Space Grotesk'; line-height: 1;">8%</div>
                 <p style="font-size: 1.2rem; margin-top: 1rem; font-weight: 500;">Acceptance Rate</p>
-                <div style="margin-top: 2rem; display: flex; gap: 2rem; justify-content: center; opacity: 0.9; font-size: 0.9rem;">
-                    <span>Startups Selected: <strong>TBD</strong></span>
-                    <span>&bull;</span>
-                    <span>Applications Received: <strong>TBD</strong></span>
-                </div>
+                <p style="margin-top: 2rem; opacity: 0.9; font-size: 0.9rem;">Selection prefered to those who have done hobby projects, design things and for builders</p>
             </div>
         </section>
 
@@ -488,7 +781,7 @@
         <section id="process" class="timeline-section">
             <div class="section-header">
                 <h2>The Process</h2>
-                <p style="font-size: 1.2rem; color: #666; margin-top: 1rem;">From Research Paper to Product Launch.</p>
+                <p style="font-size: 1.2rem; color: #666; margin-top: 1rem;">From Research Paper and Project to Product Launch.</p>
             </div>
             <div class="timeline-grid">
                 <div class="timeline-card">
@@ -499,12 +792,12 @@
                 <div class="timeline-card">
                     <span class="step-phase">Phase 02</span>
                     <h3 class="step-title">Incubation</h3>
-                    <p style="color: #555;">Weekly dinners, mentor sessions, and build sprints. You focus on building; we focus on removing obstacles and providing guidance.</p>
+                    <p style="color: #555;">Weekly meetings, mentor sessions, and build sprints. You focus on building; we focus on removing obstacles and providing guidance.</p>
                 </div>
                 <div class="timeline-card">
                     <span class="step-phase">Phase 03</span>
                     <h3 class="step-title">Launch</h3>
-                    <p style="color: #555;">The program concludes with a showcase where you present your working prototype and business model to the HTSI community.</p>
+                    <p style="color: #555;">The program concludes with a showcase where you present your working prototype and business model to the HTSI community with support from members from the UN, FAANG, top startups and beyond.</p>
                 </div>
             </div>
         </section>
@@ -512,29 +805,81 @@
         <!-- Mentors -->
         <section id="mentors" class="mentors-section">
             <h2>Mentors</h2>
-            <p style="color: #666; margin-top: 0.5rem; max-width: 600px;">Our mentors include HTHS alumni, industry engineers, and successful founders.</p>
+            <p style="color: #666; margin-top: 0.5rem; max-width: 600px;">Our mentors include HTHS alumni, industry engineers, and successful founders. Click to learn more.</p>
             
             <div class="mentor-grid">
-                <!-- Names to be provided later -->
-                <div class="mentor-card">
-                    <div class="mentor-avatar"></div>
-                    <h4>Mentor Name</h4>
-                    <span style="font-size: 0.9rem; color: #777;">TBD</span>
+                <!-- Ethan Yip -->
+                <div class="mentor-card" onclick="toggleMentor(this)">
+                    <img src="ethan.jpeg" alt="Ethan Yip" class="mentor-avatar">
+                    <h4>Ethan Yip<span class="expand-indicator">+</span></h4>
+                    <p class="mentor-title">Co-founder @ Celestify | VC in Residence @ Lvlup ($300M AUM)</p>
+                    
+                    <div class="mentor-details">
+                        <h4>About</h4>
+                        <p>Helping founders turn ideas into traction and teams into systems that scale. Ethan brings a unique blend of venture capital insight and hands-on operational experience to HTSI.</p>
+                        
+                        <p><strong>Experience:</strong></p>
+                        <ul>
+                            <li>Co-founder of Celestify</li>
+                            <li>Venture Capitalist in Residence @ Lvlup</li>
+                            <li>Former Venture + Ops @ Ultra (YC W24)</li>
+                            <li>Former @ CRDO & Constellation Technologies</li>
+                            <li>Mentor @ Nova Accelerator & High Tech Startup Incubator</li>
+                        </ul>
+                        
+                        <p style="font-style: italic; margin-top: 1rem;">"Along the way I've worn a lot of hats... from early startup operator to coding instructor to 50 kids. These experiences and skills shape how I think about analyzing and designing systems that actually work."</p>
+                        
+                        <a href="https://www.linkedin.com/in/yip-ethan/" target="_blank" class="mentor-linkedin">View LinkedIn Profile →</a>
+                    </div>
                 </div>
-                <div class="mentor-card">
-                    <div class="mentor-avatar"></div>
-                    <h4>Mentor Name</h4>
-                    <span style="font-size: 0.9rem; color: #777;">TBD</span>
+
+                <!-- Ayden Pinto -->
+                <div class="mentor-card" onclick="toggleMentor(this)">
+                    <img src="pinto.png" alt="Ayden Pinto" class="mentor-avatar">
+                    <h4>Ayden Pinto<span class="expand-indicator">+</span></h4>
+                    <p class="mentor-title">Student Leader | Finance & Operations Specialist</p>
+                    
+                    <div class="mentor-details">
+                        <h4>About</h4>
+                        <p>Ayden is a proven student leader who excels at building communities, securing partnerships, and managing financial operations. His experience spans from wellness initiatives to competitive robotics, always focused on making opportunities accessible and impactful for students.</p>
+                        
+                        <p><strong>Leadership:</strong></p>
+                        <ul>
+                            <li>President @ HTHS Wellness Club – Organized weekly yoga & stress-management sessions, recruited 30+ active members, launched annual "Wellness Challenge" during finals</li>
+                            <li>Chief Financial Officer @ NJ MEC Competition – Led team securing sponsorships from major tech companies, managed operations and social media, made robotics affordable and accessible</li>
+                            <li>President @ HTHS Finance Club – Teaches micro and macroeconomic courses, founded monthly Finance Club Newsletter, leads guest speakers and competitions</li>
+                            <li>President @ Manalapan Teen CERT – Leads community emergency preparedness through clothing drives, fundraisers, and First Aid classes</li>
+                        </ul>
+                        
+                        <p style="font-style: italic; margin-top: 1rem;">Ayden brings a systems-thinking approach to student organizations, combining financial acumen with a passion for creating meaningful experiences for his peers.</p>
+                        
+                        <a href="https://www.linkedin.com/in/ayden-pinto-0b851230a/" target="_blank" class="mentor-linkedin">View LinkedIn Profile →</a>
+                    </div>
                 </div>
-                <div class="mentor-card">
-                    <div class="mentor-avatar"></div>
-                    <h4>Mentor Name</h4>
-                    <span style="font-size: 0.9rem; color: #777;">TBD</span>
-                </div>
-                <div class="mentor-card">
-                    <div class="mentor-avatar"></div>
-                    <h4>Mentor Name</h4>
-                    <span style="font-size: 0.9rem; color: #777;">TBD</span>
+
+                <!-- Henry Griffith -->
+                <div class="mentor-card" onclick="toggleMentor(this)">
+                    <img src="henry.jpeg" alt="Henry Griffith" class="mentor-avatar">
+                    <h4>Henry Griffith<span class="expand-indicator">+</span></h4>
+                    <p class="mentor-title">Co-Founder @ Coffee Pod Recycling Co.</p>
+                    
+                    <div class="mentor-details">
+                        <h4>About</h4>
+                        <p>Henry combines entrepreneurial leadership with hands-on engineering experience to promote sustainable solutions. As a student at High Tech, he demonstrates how technical skills and business acumen can address real-world environmental challenges.</p>
+                        
+                        <p><strong>Experience:</strong></p>
+                        <ul>
+                            <li>Co-Founder & Managing Partner @ Coffee Pod Recycling Co. – Leveraging finance and engineering to create sustainable recycling solutions</li>
+                            <li>Engineering Intern @ Groome Industrial Service Group – Gained practical, hands-on engineering experience in industrial applications</li>
+                            <li>Euro Challenge Team A Leader @ HTHS – Demonstrated collaborative and analytical skills in competitive economics</li>
+                            <li>Director-designate of Events @ HTHS Finance Club</li>
+                            <li>Princeton University James Madison Program Summer Seminar – Focused on American Constitutionalism</li>
+                        </ul>
+                        
+                        <p style="font-style: italic; margin-top: 1rem;">Passionate about innovation, Henry employs practical engineering, financial, and strategic thinking to build solutions that create measurable environmental and social impact.</p>
+                        
+                        <a href="https://www.linkedin.com/in/henry-griffith-b22789318/" target="_blank" class="mentor-linkedin">View LinkedIn Profile →</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -547,7 +892,7 @@
                 <div class="faq-item">
                     <div class="faq-question">Who can apply? <span>+</span></div>
                     <div class="faq-answer">
-                        Any current student at High Technology High School. We encourage applications from all grade levels, though preference is often given to Juniors and Seniors with active Research projects.
+                        Any current student at High Technology High School can apply to the in person main program. We encourage applications from all grade levels, though preference is often given to Juniors and Seniors with active Research projects.
                     </div>
                 </div>
 
@@ -568,7 +913,14 @@
                 <div class="faq-item">
                     <div class="faq-question">What happens after the program? <span>+</span></div>
                     <div class="faq-answer">
-                        Alumni of HTSI often go on to compete in national competitions or continue working on their ventures through college.
+                        Alumni of HTSI often go on to compete in national competitions or continue working on their ventures through college. There is also an optional virtual program for those who are not able to attend the in person main program.
+                    </div>
+                </div>
+
+                <div id="online" class="faq-item highlighted">
+                    <div class="faq-question">Can students from other schools apply? <span>+</span></div>
+                    <div class="faq-answer">
+                        Yes! We're excited to announce an online cohort for Spring 2026, open to students worldwide. This program will be officially unveiled at the UNESCO Learning Planet 2026 Conference in Paris, France. The virtual cohort provides the same mentorship and resources as our in-person program, designed specifically for ambitious students beyond High Tech High School.
                     </div>
                 </div>
 
@@ -632,6 +984,54 @@
                 const span = item.querySelector('span');
                 span.innerText = parent.classList.contains('active') ? '-' : '+';
             })
+        });
+
+        // Mentor Card Toggle Logic
+        function toggleMentor(card) {
+            const details = card.querySelector('.mentor-details');
+            const indicator = card.querySelector('.expand-indicator');
+            
+            // Toggle current card (keep others open)
+            details.classList.toggle('active');
+            indicator.innerText = details.classList.contains('active') ? '-' : '+';
+        }
+
+        // Auto-open Online FAQ when navigating from navbar
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash === '#online') {
+                setTimeout(() => {
+                    const onlineFaq = document.getElementById('online');
+                    if (onlineFaq && !onlineFaq.classList.contains('active')) {
+                        const question = onlineFaq.querySelector('.faq-question');
+                        question.click();
+                    }
+                }, 100);
+            }
+        });
+
+        // Modal Logic
+        function openModal() {
+            const modal = document.getElementById('cohortModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('cohortModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on overlay click
+        document.getElementById('cohortModal').addEventListener('click', (e) => {
+            if (e.target.id === 'cohortModal') {
+                closeModal();
+            }
+        });
+
+        // Open modal on page load
+        window.addEventListener('load', () => {
+            setTimeout(openModal, 500);
         });
     </script>
 </body>
