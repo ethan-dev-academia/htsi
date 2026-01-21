@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTSI | High Tech Startup Incubator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* HTHS Color Scheme (Maroon/Grey) */
+            --primary: #800000; /* HTHS Maroon */
+            --primary-dark: #5a0000;
+            --accent: #555555; /* HTHS Grey */
+            --bg: #fcfcfc;
+            --text-main: #222;
+            --text-light: #666;
+            --border: #e0e0e0;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            background: var(--primary);
+            color: white;
+            padding: 0 5%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-box {
+            background: white;
+            color: var(--primary);
+            padding: 2px 6px;
+            font-family: 'Space Grotesk';
+            border-radius: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .cta-button:hover {
+            background: #e65c00;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 8rem 5% 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* --- Carousel (Simple & Elegant) --- */
+        .carousel-container {
+            width: 100%;
+            height: 500px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px; /* YC isn't big on round corners, but subtle is good */
+            margin-bottom: 4rem;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide.active { opacity: 1; }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 4rem 2rem 2rem;
+            color: white;
+        }
+
+        .slide-caption h3 { font-size: 2rem; margin-bottom: 0.5rem; }
+
+        /* Placeholders */
+        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80'); }
+        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80'); }
+        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1531545514256-b1400bc00f31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80'); }
+
+        /* --- Manifesto / Mission (Text Heavy) --- */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+            padding: 0 5%;
+        }
+
+        .mission-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-top: 1rem;
+        }
+
+        .mission-text h2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 4px;
+            background: var(--text-main);
+        }
+
+        .mission-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .stat-box {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk';
+            color: var(--primary);
+        }
+        
+        /* --- Timeline / Process --- */
+        .timeline-section {
+            background: #fff;
+            padding: 6rem 5%;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline-card {
+            padding-right: 2rem;
+            border-left: 2px solid var(--border);
+            padding-left: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .timeline-card:hover {
+            border-left-color: var(--accent);
+        }
+
+        .step-phase {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Mentors (Simple Grid) --- */
+        .mentors-section {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 5%;
+        }
+
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mentor-card {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .mentor-avatar {
+            width: 80px;
+            height: 80px;
+            background: #ddd;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            /* Placeholder pattern */
+            background-image: radial-gradient(#999 15%, transparent 16%), radial-gradient(#999 15%, transparent 16%);
+            background-size: 10px 10px;
+        }
+
+        /* --- FAQ (Accordion) --- */
+        .faq-section {
+            background: #fff;
+            border-top: 1px solid var(--border);
+            padding: 6rem 5%;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-question {
+            padding: 1.5rem 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .faq-answer {
+            padding-bottom: 1.5rem;
+            color: var(--text-light);
+            display: none;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-question { color: var(--primary); }
+
+        /* --- Apply Section (Critical Workflow) --- */
+        .apply-section {
+            background: var(--bg);
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .apply-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid var(--border);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .status-badge {
+            background: #FFF5F5;
+            color: #C53030;
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 2rem;
+            border: 1px solid #FC8181;
+        }
+
+        .form-row {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-row label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            background: #fafafa;
+            font-family: inherit;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #ccc;
+            border: none;
+            font-weight: 700;
+            cursor: not-allowed;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #111;
+            color: #888;
+            padding: 4rem 5%;
+            font-size: 0.9rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .mission-grid { grid-template-columns: 1fr; }
+            .timeline-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <span class="logo-box">H</span>
+            HTSI
+        </a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#process">Process</a>
+            <a href="#mentors">People</a>
+            <a href="#faq">FAQ</a>
+            <a href="#apply" class="cta-button">Apply</a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main>
+        
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Building the next generation of<br>High Tech founders.</h1>
+            <p>We connect engineering students with the resources, mentorship, and capital to turn required research into real world startups.</p>
+        </section>
+
+        <!-- Carousel -->
+        <div class="carousel-container">
+            <div class="slide active">
+                <div class="slide-caption">
+                    <h3>Innovation at High Tech</h3>
+                    <p>Students designing the future in our labs.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-caption">
+                    <h3>Peer Collaboration</h3>
+                    <p>Engineers and founders working together.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-caption">
+                    <h3>Demo Day</h3>
+                    <p>Presenting research to industry leaders.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- First Batch Stats Banner -->
+        <section style="background: var(--primary); color: white; padding: 3rem 5%; text-align: center; margin-bottom: 4rem;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <p style="text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; opacity: 0.8; margin-bottom: 0.5rem;">Batch 1 (Fall 2026)</p>
+                <div style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; font-family: 'Space Grotesk'; line-height: 1;">[TBD]%</div>
+                <p style="font-size: 1.2rem; margin-top: 1rem; font-weight: 500;">Acceptance Rate</p>
+                <div style="margin-top: 2rem; display: flex; gap: 2rem; justify-content: center; opacity: 0.9; font-size: 0.9rem;">
+                    <span>Startups Selected: <strong>TBD</strong></span>
+                    <span>&bull;</span>
+                    <span>Applications Received: <strong>TBD</strong></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission -->
+        <section id="about" class="mission-grid">
+            <div class="mission-text">
+                <h2>Why HTSI?</h2>
+                <p>High Technology High School is a school full of entrepreneurs. However, the gap between academic research and viable business is often too wide for students to cross alone.</p>
+                <p>HTSI is the bridge. We provide the infrastructure to take the ideas developed in the Research Class—a requirement for all students—and interview them for viability, scalability, and impact.</p>
+                <p>Selected teams receive guidance, workspace, and access to our alumni network.</p>
+            </div>
+            <div>
+                <div class="stat-box">
+                    <span class="stat-number">0%</span>
+                    <p style="margin-top: 0.5rem; font-weight: 600;">Equity Taken</p>
+                    <p style="font-size: 0.9rem; color: #666;">You keep 100% ownership of your company and IP.</p>
+                </div>
+                <div class="stat-box" style="margin-top: 1rem; border-left: 4px solid var(--accent);">
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem;">For Students, By Students</h3>
+                    <p>A completely student-run initiative supported by faculty and alumni.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline -->
+        <section id="process" class="timeline-section">
+            <div class="section-header">
+                <h2>The Process</h2>
+                <p style="font-size: 1.2rem; color: #666; margin-top: 1rem;">From Research Paper to Product Launch.</p>
+            </div>
+            <div class="timeline-grid">
+                <div class="timeline-card">
+                    <span class="step-phase">Phase 01</span>
+                    <h3 class="step-title">Application & Interview</h3>
+                    <p style="color: #555;">Submit your research proposal. Selected applicants undergo a comprehensive and thorough interview process to test technical feasibility and market understanding.</p>
+                </div>
+                <div class="timeline-card">
+                    <span class="step-phase">Phase 02</span>
+                    <h3 class="step-title">Incubation</h3>
+                    <p style="color: #555;">Weekly dinners, mentor sessions, and build sprints. You focus on building; we focus on removing obstacles and providing guidance.</p>
+                </div>
+                <div class="timeline-card">
+                    <span class="step-phase">Phase 03</span>
+                    <h3 class="step-title">Launch</h3>
+                    <p style="color: #555;">The program concludes with a showcase where you present your working prototype and business model to the HTSI community.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mentors -->
+        <section id="mentors" class="mentors-section">
+            <h2>Mentors</h2>
+            <p style="color: #666; margin-top: 0.5rem; max-width: 600px;">Our mentors include HTHS alumni, industry engineers, and successful founders.</p>
+            
+            <div class="mentor-grid">
+                <!-- Names to be provided later -->
+                <div class="mentor-card">
+                    <div class="mentor-avatar"></div>
+                    <h4>Mentor Name</h4>
+                    <span style="font-size: 0.9rem; color: #777;">TBD</span>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-avatar"></div>
+                    <h4>Mentor Name</h4>
+                    <span style="font-size: 0.9rem; color: #777;">TBD</span>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-avatar"></div>
+                    <h4>Mentor Name</h4>
+                    <span style="font-size: 0.9rem; color: #777;">TBD</span>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-avatar"></div>
+                    <h4>Mentor Name</h4>
+                    <span style="font-size: 0.9rem; color: #777;">TBD</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="faq-section">
+            <div class="faq-container">
+                <h2 style="margin-bottom: 2rem;">Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Who can apply? <span>+</span></div>
+                    <div class="faq-answer">
+                        Any current student at High Technology High School. We encourage applications from all grade levels, though preference is often given to Juniors and Seniors with active Research projects.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What is the "Research Class" requirement? <span>+</span></div>
+                    <div class="faq-answer">
+                        HTSI is designed to integrate with the HTHS Research curriculum. Your startup idea typically stems from the project you are already developing for class, though independent projects are also considered.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Does HTSI take equity? <span>+</span></div>
+                    <div class="faq-answer">
+                        No. HTSI is an educational non-profit initiative. You own 100% of your intellectual property.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What happens after the program? <span>+</span></div>
+                    <div class="faq-answer">
+                        Alumni of HTSI often go on to compete in national competitions or continue working on their ventures through college.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Apply -->
+        <section id="apply" class="apply-section">
+            <div class="apply-box">
+                <div class="status-badge">APPLICATIONS CLOSED</div>
+                <h2>Apply to HTSI</h2>
+                <p style="margin-bottom: 2rem; color: #666;">The next batch begins in Fall 2026.</p>
+
+                <form>
+                    <div class="form-row">
+                        <label>Project / Idea Name</label>
+                        <input type="text" class="form-input" disabled placeholder="e.g. Bio-metric Sensor array">
+                    </div>
+                    <div class="form-row">
+                        <label>Short Description (1-2 sentences)</label>
+                        <input type="text" class="form-input" disabled placeholder="What are you building and why?">
+                    </div>
+                    <button class="submit-btn" disabled>Apply Now</button>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #888;">Applications are currently hidden. Check back later.</p>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <strong>HTSI</strong>
+                <p>Lincroft, New Jersey</p>
+            </div>
+            <div>
+                <a href="#">Contact</a> &bullet; 
+                <a href="#">Twitter</a> &bullet; 
+                <a href="#">Legal</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Carousel Logic
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 6000);
+
+        // FAQ Logic
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', event => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+                const span = item.querySelector('span');
+                span.innerText = parent.classList.contains('active') ? '-' : '+';
+            })
+        });
+    </script>
+</body>
+</html>
