@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live | HTSI | High Tech Startup Incubator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #800000;
+            --primary-dark: #5a0000;
+            --accent: #555555;
+            --bg: #fcfcfc;
+            --text-main: #222;
+            --text-light: #666;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        .navbar {
+            background: var(--primary);
+            color: white;
+            padding: 0 5%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-box {
+            background: white;
+            color: var(--primary);
+            padding: 2px 6px;
+            font-family: 'Space Grotesk';
+            border-radius: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .nav-links a.live-link {
+            color: rgba(255,255,255,0.9);
+            border-bottom: 2px solid white;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .live-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .live-header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .live-header p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .stream-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .stream-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .stream-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .stream-placeholder .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .stream-placeholder h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .stream-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .stream-link:hover {
+            background: var(--primary-dark);
+        }
+
+        footer {
+            background: #111;
+            color: #888;
+            padding: 3rem 5%;
+            font-size: 0.9rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-box">H</span>
+            HTSI
+        </a>
+        <div class="nav-links">
+            <a href="/#about">About</a>
+            <a href="/#process">Process</a>
+            <a href="/#mentors">People</a>
+            <a href="/#online">Online Cohort</a>
+            <a href="/#faq">FAQ</a>
+            <a href="/live" class="live-link">Live</a>
+            <a href="/#apply" class="cta-button">Apply</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="live-header">
+            <h1>Livestream</h1>
+            <p>Watch HTSI events live</p>
+        </div>
+
+        <div class="stream-container">
+            <!-- Set your livestream URL below. Examples:
+                 YouTube: https://www.youtube.com/watch?v=VIDEO_ID or https://www.youtube.com/embed/VIDEO_ID
+                 Twitch: https://www.twitch.tv/CHANNEL_NAME
+            -->
+            <div id="streamArea">
+                <div class="stream-placeholder" id="streamPlaceholder">
+                    <span class="icon">▶</span>
+                    <h3>Waiting for stream. Come back at 8pm EST on Jan 31st!</h3>
+                    <a href="#" class="stream-link" id="streamLink" target="_blank" rel="noopener" style="display: none;">Watch on external platform →</a>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // Set your livestream URL here. Leave empty when no stream is live.
+        const STREAM_URL = '';  // e.g. 'https://www.youtube.com/watch?v=xyz' or 'https://www.twitch.tv/channel'
+        const STREAM_EMBED_URL = '';  // Optional: embed URL for YouTube (e.g. 'https://www.youtube.com/embed/VIDEO_ID') or Twitch
+
+        if (STREAM_EMBED_URL) {
+            document.getElementById('streamArea').innerHTML = '<iframe src="' + STREAM_EMBED_URL + '?autoplay=1" allowfullscreen allow="autoplay; fullscreen"></iframe>';
+        } else if (STREAM_URL) {
+            document.getElementById('streamPlaceholder').querySelector('h3').textContent = 'Watch the livestream';
+            const link = document.getElementById('streamLink');
+            link.href = STREAM_URL;
+            link.style.display = 'inline-block';
+        }
+    </script>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <strong>HTSI</strong>
+                <p>Lincroft, New Jersey</p>
+            </div>
+            <div>
+                <a href="/">Home</a> &bullet;
+                <a href="/#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
