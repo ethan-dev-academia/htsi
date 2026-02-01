@@ -171,6 +171,74 @@
             background: var(--primary-dark);
         }
 
+        /* Redirect confirmation popup */
+        .redirect-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .redirect-modal {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .redirect-modal h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .redirect-modal p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .redirect-modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .redirect-modal-buttons button {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            border: none;
+        }
+
+        .redirect-cancel {
+            background: #e5e5e5;
+            color: #333;
+        }
+
+        .redirect-cancel:hover {
+            background: #d5d5d5;
+        }
+
+        .redirect-confirm {
+            background: var(--primary);
+            color: white;
+        }
+
+        .redirect-confirm:hover {
+            background: var(--primary-dark);
+        }
+
         footer {
             background: #111;
             color: #888;
@@ -216,32 +284,56 @@
         </div>
 
         <div class="stream-container">
-            <!-- Set your livestream URL below. Examples:
-                 YouTube: https://www.youtube.com/watch?v=VIDEO_ID or https://www.youtube.com/embed/VIDEO_ID
-                 Twitch: https://www.twitch.tv/CHANNEL_NAME
-            -->
             <div id="streamArea">
                 <div class="stream-placeholder" id="streamPlaceholder">
                     <span class="icon">▶</span>
-                    <h3>Waiting for stream. Come back at 8pm EST on Jan 31st!</h3>
-                    <a href="#" class="stream-link" id="streamLink" target="_blank" rel="noopener" style="display: none;">Watch on external platform →</a>
+                    <h3>Watch the HTSI livestream on LinkedIn</h3>
+                    <p style="margin-bottom: 1rem;">Why Startups Are the Ultimate Classroom in 2026: Spring 2026 Online</p>
+                    <a href="https://www.linkedin.com/video/live/urn:li:ugcPost:7423528076170674176/" class="stream-link" id="watchLiveBtn" target="_blank" rel="noopener">Watch Live on LinkedIn →</a>
                 </div>
             </div>
         </div>
 
-    <script>
-        // Set your livestream URL here. Leave empty when no stream is live.
-        const STREAM_URL = '';  // e.g. 'https://www.youtube.com/watch?v=xyz' or 'https://www.twitch.tv/channel'
-        const STREAM_EMBED_URL = '';  // Optional: embed URL for YouTube (e.g. 'https://www.youtube.com/embed/VIDEO_ID') or Twitch
+    <!-- Redirect confirmation popup -->
+    <div id="redirectPopup" class="redirect-overlay">
+        <div class="redirect-modal">
+            <h3>Redirect to Livestream</h3>
+            <p>You are about to be redirected to LinkedIn to watch the HTSI livestream.</p>
+            <div class="redirect-modal-buttons">
+                <button type="button" class="redirect-cancel" id="redirectCancel">Cancel</button>
+                <button type="button" class="redirect-confirm" id="redirectConfirm">Confirm Redirect</button>
+            </div>
+        </div>
+    </div>
 
-        if (STREAM_EMBED_URL) {
-            document.getElementById('streamArea').innerHTML = '<iframe src="' + STREAM_EMBED_URL + '?autoplay=1" allowfullscreen allow="autoplay; fullscreen"></iframe>';
-        } else if (STREAM_URL) {
-            document.getElementById('streamPlaceholder').querySelector('h3').textContent = 'Watch the livestream';
-            const link = document.getElementById('streamLink');
-            link.href = STREAM_URL;
-            link.style.display = 'inline-block';
+    <script>
+        const STREAM_URL = 'https://www.linkedin.com/video/live/urn:li:ugcPost:7423528076170674176/';
+
+        const popup = document.getElementById('redirectPopup');
+        const cancelBtn = document.getElementById('redirectCancel');
+        const confirmBtn = document.getElementById('redirectConfirm');
+        const watchLiveBtn = document.getElementById('watchLiveBtn');
+
+        function closeRedirectPopup() {
+            popup.style.display = 'none';
         }
+
+        function goToStream() {
+            window.location.href = STREAM_URL;
+        }
+
+        cancelBtn.addEventListener('click', closeRedirectPopup);
+        confirmBtn.addEventListener('click', goToStream);
+
+        watchLiveBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            popup.style.display = 'flex';
+        });
+
+        // Show confirm popup on page load
+        window.addEventListener('load', function() {
+            popup.style.display = 'flex';
+        });
     </script>
     </main>
 
