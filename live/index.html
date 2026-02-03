@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live | HTSI | High Tech Startup Incubator</title>
+    <title>Why Startups Are the Ultimate Classroom in 2026 | HTSI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #800000;
-            --primary-dark: #5a0000;
-            --accent: #555555;
-            --bg: #fcfcfc;
             --text-main: #222;
             --text-light: #666;
-            --border: #e0e0e0;
+            --border: #ddd;
+            --tag-bg: #e8e8e8;
         }
 
         * {
@@ -26,329 +23,526 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg);
+            background: #fff;
             color: var(--text-main);
-            line-height: 1.5;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: color 0.2s;
         }
 
-        .navbar {
-            background: var(--primary);
-            color: white;
-            padding: 0 5%;
-            height: 60px;
+        .page-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            align-items: center;
+            padding: 2rem 5%;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #9b7ed9 0%, #e8a87c 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
         }
 
-        .logo-box {
-            background: white;
-            color: var(--primary);
-            padding: 2px 6px;
-            font-family: 'Space Grotesk';
-            border-radius: 2px;
+        .event-meta-top {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-main);
+            letter-spacing: 0.02em;
         }
 
-        .nav-links {
+        .event-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 5% 4rem;
+        }
+
+        .event-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .event-organizer {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 1.25rem;
+        }
+
+        .event-organizer a {
+            text-decoration: underline;
+            color: inherit;
+        }
+
+        .event-tags {
             display: flex;
-            align-items: center;
-            gap: 2rem;
-            font-size: 0.95rem;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
-        .nav-links a:hover {
-            color: rgba(255,255,255,0.7);
-        }
-
-        .nav-links a.live-link {
-            color: rgba(255,255,255,0.9);
-            border-bottom: 2px solid white;
-        }
-
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 5%;
-        }
-
-        .live-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .live-header h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 0.5rem;
-        }
-
-        .live-header p {
-            color: var(--text-light);
-            font-size: 1.2rem;
-        }
-
-        .stream-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            background: #111;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .stream-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .stream-placeholder {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .event-attributes {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.7);
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            gap: 1rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
-        .stream-placeholder .icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+        .attr-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .attr-item svg {
+            width: 18px;
+            height: 18px;
             opacity: 0.8;
         }
 
-        .stream-placeholder h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: white;
+        .attr-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
         }
 
-        .stream-link {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 1rem 2rem;
-            background: var(--primary);
-            color: white;
+        .action-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #222;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
-            border-radius: 4px;
-            transition: background 0.2s;
+            font-family: inherit;
+            background: white;
+            color: #222;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .stream-link:hover {
-            background: var(--primary-dark);
+        .btn:hover {
+            background: #222;
+            color: white;
         }
 
-        /* Redirect confirmation popup */
-        .redirect-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+        .btn-primary {
+            background: #222;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            border: 2px solid #222;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.2s;
         }
 
-        .redirect-modal {
-            background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            max-width: 420px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .redirect-modal h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .redirect-modal p {
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .redirect-modal-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-        }
-
-        .redirect-modal-buttons button {
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
-            border: none;
-        }
-
-        .redirect-cancel {
-            background: #e5e5e5;
-            color: #333;
-        }
-
-        .redirect-cancel:hover {
-            background: #d5d5d5;
-        }
-
-        .redirect-confirm {
-            background: var(--primary);
+        .social-btn:hover {
+            background: #222;
             color: white;
         }
 
-        .redirect-confirm:hover {
-            background: var(--primary-dark);
+        .description-section {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
         }
 
-        footer {
-            background: #111;
-            color: #888;
-            padding: 3rem 5%;
+        .description-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .description-text p {
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .sdg-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .sdg-badge {
+            width: 140px;
+            padding: 0.75rem;
+            border-radius: 6px;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.3;
+        }
+
+        .sdg-4 {
+            background: #c5192d;
+        }
+
+        .sdg-9 {
+            background: #fd6925;
+        }
+
+        .sdg-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
             font-size: 0.9rem;
-            margin-top: 4rem;
+            color: var(--text-light);
+            text-decoration: underline;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        .back-link:hover {
+            color: #222;
+        }
+
+        .top-links {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1100px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--border);
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .top-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: underline;
+            color: var(--text-main);
+        }
+
+        .top-links a:hover {
+            color: var(--text-light);
+        }
+
+        .lp-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .lp-banner img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .lp-banner .logo-times {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #333;
+        }
+
+        .speakers-section {
+            margin: 3rem 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .speakers-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .speakers-row {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .speaker-card {
+            display: flex;
+            gap: 1.5rem;
+            flex: 1;
+            min-width: 300px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .speaker-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .speaker-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .speaker-info h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .speaker-title {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .speaker-bio {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .speaker-bio ul {
+            margin: 0.5rem 0 0 1rem;
+            padding: 0;
+        }
+
+        .speaker-bio li {
+            margin-bottom: 0.25rem;
+        }
+
+        .speaker-linkedin {
+            font-size: 0.85rem;
+            color: #0077b5;
+            text-decoration: underline;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .speaker-linkedin:hover {
+            color: #005582;
         }
 
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .action-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <a href="/" class="logo">
-            <span class="logo-box">H</span>
-            HTSI
-        </a>
-        <div class="nav-links">
-            <a href="/#about">About</a>
-            <a href="/#process">Process</a>
-            <a href="/#mentors">People</a>
-            <a href="/#online">Online Cohort</a>
-            <a href="/#faq">FAQ</a>
-            <a href="/live" class="live-link">Live</a>
-            <a href="/#apply" class="cta-button">Apply</a>
-        </div>
-    </nav>
+    <div class="top-links">
+        <a href="https://www.learning-planet.org/event/learning-by-building-why-startups-are-the-ultimate-classroom-in-2026/" target="_blank" rel="noopener">Go to official page →</a>
+        <a href="/">← Return to home page</a>
+    </div>
 
-    <main class="main-content">
-        <div class="live-header">
-            <h1>Livestream</h1>
-            <p>Watch HTSI events live</p>
+    <header class="page-header">
+        <a href="/" class="logo">LEARNING PLANET Festival</a>
+        <span class="event-meta-top">31 JANUARY 2026 - 20:00 - 20:30 NEW_YORK</span>
+    </header>
+
+    <main class="event-content">
+        <h1 class="event-title">Why Startups Are the Ultimate Classroom in 2026: Spring 2026 Online</h1>
+        <p class="event-organizer">Organised by <a href="/">Future of Technology</a></p>
+
+        <div class="lp-banner">
+            <a href="https://www.learning-planet.org/" target="_blank" rel="noopener"><img src="learning-planet-logo.png" alt="Learning Planet Institute"></a>
+            <span class="logo-times">×</span>
+            <a href="https://www.unesco.org/" target="_blank" rel="noopener"><img src="unesco-logo.png" alt="UNESCO"></a>
         </div>
 
-        <div class="stream-container">
-            <div id="streamArea">
-                <div class="stream-placeholder" id="streamPlaceholder">
-                    <span class="icon">▶</span>
-                    <h3>Watch the HTSI livestream on LinkedIn</h3>
-                    <p style="margin-bottom: 1rem;">Why Startups Are the Ultimate Classroom in 2026: Spring 2026 Online</p>
-                    <a href="https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="stream-link" id="watchLiveBtn" target="_blank" rel="noopener">Watch Live on LinkedIn →</a>
+        <div class="event-tags">
+            <span class="tag">AI & EDTECH</span>
+            <span class="tag">K-12</span>
+        </div>
+
+        <div class="event-attributes">
+            <span class="attr-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11 6v12"/></svg>
+                Masterclass
+            </span>
+            <span class="attr-divider"></span>
+            <span class="attr-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Online event
+            </span>
+            <span class="attr-divider"></span>
+            <span class="attr-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                English
+            </span>
+        </div>
+
+        <div class="action-row">
+            <a href="https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="btn btn-primary" target="_blank" rel="noopener">Join this event !</a>
+            <button type="button" class="btn" onclick="addToCalendar()">
+                Add to calendar
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </button>
+            <button type="button" class="btn" onclick="copyLink()">
+                Copy link
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="social-btn" target="_blank" rel="noopener" title="Share on LinkedIn">in</a>
+                <a href="https://twitter.com/intent/tweet?url=https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/&text=Why%20Startups%20Are%20the%20Ultimate%20Classroom%20in%202026%20-%20Spring%202026%20Online" class="social-btn" target="_blank" rel="noopener" title="Share on X">𝕏</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="social-btn" target="_blank" rel="noopener" title="Share on Facebook">f</a>
+                <a href="mailto:?subject=Why Startups Are the Ultimate Classroom in 2026&body=https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="social-btn" title="Share via Email">✉</a>
+            </div>
+        </div>
+
+        <div class="description-section">
+            <div class="description-text">
+                <p>We are showcasing HTSI's platform and Spring 2026 Online! We will talk about startups for students and provide resources for students and educators.</p>
+                <p>In 2026, the world is moving at a rapid pace: AI tools, remote collaboration, and global markets are accessible to anyone with any idea. Traditional education struggles to keep up, but founding a startup teaches unique problem solving, adapting teamwork and resilience in ways that textbooks can't. Attendees will learn why early exposure to real-world challenges accelerates learning, builds confidence, and develops a mindset for navigating complexity. This session is ideal for students and aspiring entrepreneurs and is two parts. First, we make the case that the startup journey in today's world is the most effective way to prepare for the future. Second, we discuss the current barriers to entry, limitations of this education technique and how to navigate in this field.</p>
+            </div>
+            <div class="sdg-badges">
+                <div class="sdg-badge sdg-4">
+                    <div class="sdg-num">4</div>
+                    QUALITY EDUCATION
+                </div>
+                <div class="sdg-badge sdg-9">
+                    <div class="sdg-num">9</div>
+                    INDUSTRY, INNOVATION AND INFRASTRUCTURE
                 </div>
             </div>
         </div>
 
-    <!-- Redirect confirmation popup -->
-    <div id="redirectPopup" class="redirect-overlay">
-        <div class="redirect-modal">
-            <h3>Redirect to Livestream</h3>
-            <p>You are about to be redirected to LinkedIn to watch the HTSI livestream.</p>
-            <div class="redirect-modal-buttons">
-                <button type="button" class="redirect-cancel" id="redirectCancel">Cancel</button>
-                <button type="button" class="redirect-confirm" id="redirectConfirm">Confirm Redirect</button>
+        <section class="speakers-section">
+            <h2>Speakers</h2>
+            <div class="speakers-row">
+                <div class="speaker-card">
+                    <img src="ethan.jpeg" alt="Ethan Yip" class="speaker-avatar">
+                    <div class="speaker-info">
+                        <h3>Ethan Yip</h3>
+                        <p class="speaker-title">Co-founder @ Celestify | VC in Residence @ Lvlup ($300M AUM)</p>
+                        <div class="speaker-bio">
+                            <p>Helping founders turn ideas into traction and teams into systems that scale. Ethan brings a unique blend of venture capital insight and hands-on operational experience to HTSI.</p>
+                            <p><strong>Experience:</strong></p>
+                            <ul>
+                                <li>Co-founder of Celestify</li>
+                                <li>Venture Capitalist in Residence @ Lvlup</li>
+                                <li>Former Venture + Ops @ Ultra (YC W24)</li>
+                                <li>Former @ CRDO & Constellation Technologies</li>
+                                <li>Mentor @ Nova Accelerator & High Tech Startup Incubator</li>
+                            </ul>
+                            <p style="font-style: italic;">"Along the way I've worn a lot of hats... from early startup operator to coding instructor to 50 kids. These experiences and skills shape how I think about analyzing and designing systems that actually work."</p>
+                        </div>
+                        <a href="https://www.linkedin.com/in/yip-ethan/" target="_blank" rel="noopener" class="speaker-linkedin">View LinkedIn →</a>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <img src="pinto.png" alt="Ayden Pinto" class="speaker-avatar">
+                    <div class="speaker-info">
+                        <h3>Ayden Pinto</h3>
+                        <p class="speaker-title">Student Leader | Finance & Operations Specialist</p>
+                        <div class="speaker-bio">
+                            <p>Ayden is a proven student leader who excels at building communities, securing partnerships, and managing financial operations. His experience spans from wellness initiatives to competitive robotics, always focused on making opportunities accessible and impactful for students.</p>
+                            <p><strong>Leadership:</strong></p>
+                            <ul>
+                                <li>President @ HTHS Wellness Club – Organized weekly yoga & stress-management sessions, recruited 30+ active members, launched annual "Wellness Challenge" during finals</li>
+                                <li>Chief Financial Officer @ NJ MEC Competition – Led team securing sponsorships from major tech companies, managed operations and social media, made robotics affordable and accessible</li>
+                                <li>President @ HTHS Finance Club – Teaches micro and macroeconomic courses, founded monthly Finance Club Newsletter, leads guest speakers and competitions</li>
+                                <li>President @ Manalapan Teen CERT – Leads community emergency preparedness through clothing drives, fundraisers, and First Aid classes</li>
+                            </ul>
+                            <p style="font-style: italic;">Ayden brings a systems-thinking approach to student organizations, combining financial acumen with a passion for creating meaningful experiences for his peers.</p>
+                        </div>
+                        <a href="https://www.linkedin.com/in/ayden-pinto-0b851230a/" target="_blank" rel="noopener" class="speaker-linkedin">View LinkedIn →</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <a href="/" class="back-link">← Return to home page</a>
+    </main>
 
     <script>
         const STREAM_URL = 'https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/';
 
-        const popup = document.getElementById('redirectPopup');
-        const cancelBtn = document.getElementById('redirectCancel');
-        const confirmBtn = document.getElementById('redirectConfirm');
-        const watchLiveBtn = document.getElementById('watchLiveBtn');
-
-        function closeRedirectPopup() {
-            popup.style.display = 'none';
+        function copyLink() {
+            navigator.clipboard.writeText(STREAM_URL).then(() => {
+                alert('Link copied to clipboard!');
+            });
         }
 
-        function goToStream() {
-            window.location.href = STREAM_URL;
+        function addToCalendar() {
+            const event = {
+                title: 'Why Startups Are the Ultimate Classroom in 2026: Spring 2026 Online',
+                start: '2026-01-31T20:00:00',
+                end: '2026-01-31T20:30:00',
+                location: 'Online',
+                details: STREAM_URL
+            };
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=20260131T200000/20260131T203000&details=${encodeURIComponent(event.details)}&location=${encodeURIComponent(event.location)}`;
+            window.open(url, '_blank');
         }
-
-        cancelBtn.addEventListener('click', closeRedirectPopup);
-        confirmBtn.addEventListener('click', goToStream);
-
-        watchLiveBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            popup.style.display = 'flex';
-        });
-
-        // Show confirm popup on page load
-        window.addEventListener('load', function() {
-            popup.style.display = 'flex';
-        });
     </script>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div>
-                <strong>HTSI</strong>
-                <p>Lincroft, New Jersey</p>
-            </div>
-            <div>
-                <a href="/">Home</a> &bullet;
-                <a href="/#contact">Contact</a>
-            </div>
-        </div>
-    </footer>
-
 </body>
 </html>
