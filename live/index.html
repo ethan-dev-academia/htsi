@@ -6,7 +6,7 @@
     <title>Why Startups Are the Ultimate Classroom in 2026 | HTSI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --text-main: #222;
@@ -22,11 +22,13 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #fff;
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 17px;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         a {
@@ -34,12 +36,35 @@
             color: inherit;
         }
 
+        /* Top nav */
+        .top-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .top-links a {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .top-links a:hover {
+            color: var(--text-main);
+        }
+
         .page-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 2rem 5%;
-            max-width: 1100px;
+            max-width: 720px;
             margin: 0 auto;
         }
 
@@ -56,27 +81,27 @@
             font-size: 0.85rem;
             font-weight: 500;
             color: var(--text-main);
-            letter-spacing: 0.02em;
+            letter-spacing: 0;
         }
 
         .event-content {
-            max-width: 1100px;
+            max-width: 720px;
             margin: 0 auto;
             padding: 0 5% 4rem;
         }
 
         .event-title {
-            font-size: clamp(2rem, 5vw, 3.25rem);
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.25;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.03em;
         }
 
         .event-organizer {
             font-size: 1rem;
             color: var(--text-light);
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .event-organizer a {
@@ -84,10 +109,43 @@
             color: inherit;
         }
 
+        .event-organizer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Partner logos - understated */
+        .lp-banner {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.25rem 0;
+            flex-wrap: wrap;
+        }
+
+        .lp-banner img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.7;
+        }
+
+        .lp-banner img:hover {
+            opacity: 1;
+        }
+
+        .lp-banner .logo-times {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #333;
+        }
+
+        /* Tags */
         .event-tags {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .tag {
@@ -98,40 +156,40 @@
             font-weight: 500;
         }
 
+        /* Attributes */
         .event-attributes {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+            gap: 1.25rem;
+            padding: 1.25rem 0;
             margin-bottom: 2rem;
             flex-wrap: wrap;
+            font-size: 0.9375rem;
+            color: var(--text-light);
         }
 
         .attr-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.95rem;
         }
 
         .attr-item svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             opacity: 0.8;
         }
 
         .attr-divider {
             width: 1px;
-            height: 20px;
+            height: 14px;
             background: var(--border);
         }
 
         .action-row {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             margin-bottom: 3rem;
             flex-wrap: wrap;
         }
@@ -164,6 +222,17 @@
 
         .btn-primary:hover {
             background: #333;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #222;
+            border: 2px solid #222;
+        }
+
+        .btn-secondary:hover {
+            background: #222;
+            color: white;
         }
 
         .btn svg {
@@ -199,6 +268,7 @@
             gap: 2rem;
             align-items: flex-start;
             flex-wrap: wrap;
+            margin-bottom: 3rem;
         }
 
         .description-text {
@@ -216,20 +286,20 @@
         .sdg-badges {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.75rem;
             flex-shrink: 0;
         }
 
         .sdg-badge {
-            width: 140px;
-            padding: 0.75rem;
-            border-radius: 6px;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 700;
+            width: 130px;
+            padding: 0.625rem 0.875rem;
+            border-radius: 4px;
+            color: var(--white);
+            font-size: 0.6875rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            line-height: 1.3;
+            letter-spacing: 0.04em;
+            line-height: 1.35;
         }
 
         .sdg-4 {
@@ -241,99 +311,46 @@
         }
 
         .sdg-num {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.125rem;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            color: var(--text-light);
-            text-decoration: underline;
-        }
-
-        .back-link:hover {
-            color: #222;
-        }
-
-        .top-links {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            max-width: 1100px;
-            margin: 0 auto;
-            border-bottom: 1px solid var(--border);
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .top-links a {
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-decoration: underline;
-            color: var(--text-main);
-        }
-
-        .top-links a:hover {
-            color: var(--text-light);
-        }
-
-        .lp-banner {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1.5rem 0;
-            padding: 1rem 0;
-            flex-wrap: wrap;
-        }
-
-        .lp-banner img {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .lp-banner .logo-times {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #333;
-        }
-
+        /* Speakers */
         .speakers-section {
             margin: 3rem 0;
-            padding-top: 2rem;
+            padding-top: 2.5rem;
             border-top: 1px solid var(--border);
         }
 
         .speakers-section h2 {
-            font-size: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
             margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
         }
 
         .speakers-row {
             display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .speaker-card {
             display: flex;
             gap: 1.5rem;
-            flex: 1;
-            min-width: 300px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
             align-items: flex-start;
         }
 
+        .speaker-card:last-child {
+            border-bottom: none;
+        }
+
         .speaker-avatar {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             object-fit: cover;
             flex-shrink: 0;
@@ -345,7 +362,8 @@
         }
 
         .speaker-info h3 {
-            font-size: 1.15rem;
+            font-size: 1.0625rem;
+            font-weight: 600;
             margin-bottom: 0.25rem;
         }
 
@@ -358,17 +376,24 @@
         .speaker-bio {
             font-size: 0.9rem;
             color: #555;
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
+            line-height: 1.65;
+        }
+
+        .speaker-bio p {
+            margin-bottom: 0.75rem;
+        }
+
+        .speaker-bio p:last-child {
+            margin-bottom: 0;
         }
 
         .speaker-bio ul {
-            margin: 0.5rem 0 0 1rem;
+            margin: 0.5rem 0 0.75rem 1.25rem;
             padding: 0;
         }
 
         .speaker-bio li {
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.375rem;
         }
 
         .speaker-linkedin {
@@ -383,15 +408,34 @@
             color: #005582;
         }
 
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-decoration: underline;
+        }
+
+        .back-link:hover {
+            color: var(--text-main);
+        }
+
         @media (max-width: 768px) {
             .page-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 1rem;
+                gap: 0.75rem;
             }
             .action-row {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .speaker-card {
+                flex-direction: column;
+            }
+            .speaker-avatar {
+                width: 64px;
+                height: 64px;
             }
         }
     </style>
@@ -441,7 +485,7 @@
         </div>
 
         <div class="action-row">
-            <a href="https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="btn btn-primary" target="_blank" rel="noopener">Join this event !</a>
+            <a href="https://www.youtube.com/watch?v=KN9ZLI4_cY8&amp;t=4s" class="btn btn-primary" target="_blank" rel="noopener">Watch event recording!</a>
             <button type="button" class="btn" onclick="addToCalendar()">
                 Add to calendar
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -451,10 +495,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
             </button>
             <div class="social-icons">
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="social-btn" target="_blank" rel="noopener" title="Share on LinkedIn">in</a>
-                <a href="https://twitter.com/intent/tweet?url=https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/&text=Why%20Startups%20Are%20the%20Ultimate%20Classroom%20in%202026%20-%20Spring%202026%20Online" class="social-btn" target="_blank" rel="noopener" title="Share on X">𝕏</a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="social-btn" target="_blank" rel="noopener" title="Share on Facebook">f</a>
-                <a href="mailto:?subject=Why Startups Are the Ultimate Classroom in 2026&body=https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/" class="social-btn" title="Share via Email">✉</a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DKN9ZLI4_cY8%26t%3D4s" class="social-btn" target="_blank" rel="noopener" title="Share on LinkedIn">in</a>
+                <a href="https://twitter.com/intent/tweet?url=https://www.youtube.com/watch?v=KN9ZLI4_cY8&t=4s&text=Why%20Startups%20Are%20the%20Ultimate%20Classroom%20in%202026%20-%20Spring%202026%20Online" class="social-btn" target="_blank" rel="noopener" title="Share on X">𝕏</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DKN9ZLI4_cY8%26t%3D4s" class="social-btn" target="_blank" rel="noopener" title="Share on Facebook">f</a>
+                <a href="mailto:?subject=Why Startups Are the Ultimate Classroom in 2026&body=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DKN9ZLI4_cY8%26t%3D4s" class="social-btn" title="Share via Email">✉</a>
             </div>
         </div>
 
@@ -524,7 +568,7 @@
     </main>
 
     <script>
-        const STREAM_URL = 'https://www.linkedin.com/video/live/urn:li:ugcPost:7423532986211504130/';
+        const STREAM_URL = 'https://www.youtube.com/watch?v=KN9ZLI4_cY8&t=4s';
 
         function copyLink() {
             navigator.clipboard.writeText(STREAM_URL).then(() => {

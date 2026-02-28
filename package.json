@@ -1,0 +1,8 @@
+{
+  "name": "htsi",
+  "private": true,
+  "scripts": {
+    "preview": "npx serve . -p 3000",
+    "dev": "npx serve . -p 3000 --no-clipboard"
+  }
+}

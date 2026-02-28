@@ -6,18 +6,16 @@
     <title>HTSI | High Tech Startup Incubator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* HTHS Color Scheme (Maroon/Grey) */
-            --primary: #800000; /* HTHS Maroon */
+            --primary: #800000;
             --primary-dark: #5a0000;
-            --accent: #555555; /* HTHS Grey */
+            --accent: #555555;
             --bg: #fcfcfc;
             --text-main: #222;
             --text-light: #666;
             --border: #e0e0e0;
-            --glass: rgba(255, 255, 255, 0.95);
         }
 
         * {
@@ -26,24 +24,123 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
             color: var(--text-main);
-            line-height: 1.5;
+            line-height: 1.7;
+            font-size: 17px;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Panel Scroll --- */
+        .panel {
+            position: relative;
+            min-height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem 5% 4rem;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .panel.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- String animation --- */
+        .string-decoration {
+            position: absolute;
+            top: 0;
+            right: 3%;
+            bottom: 0;
+            width: 42%;
+            max-width: 380px;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .panel-inner,
+        .panel > div:not(.string-decoration) {
+            position: relative;
+            z-index: 1;
+        }
+
+        .string-svg {
+            position: absolute;
+            top: -10%;
+            left: 0;
+            width: 100%;
+            height: 120%;
+        }
+
+        .string-path {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 1200;
+            stroke-dashoffset: 1200;
+            animation: string-draw 8s ease-in-out infinite;
+        }
+
+        .string-path.alt {
+            stroke-dasharray: 900;
+            animation-duration: 10s;
+        }
+
+        .string-path.dark {
+            stroke: rgba(255,255,255,0.35);
+        }
+
+        .string-path.stats {
+            stroke: rgba(255,255,255,0.5);
+        }
+
+        @keyframes string-draw {
+            0% { stroke-dashoffset: 1200; }
+            25% { stroke-dashoffset: 400; }
+            50% { stroke-dashoffset: 0; }
+            75% { stroke-dashoffset: 400; }
+            100% { stroke-dashoffset: 1200; }
+        }
+
+        .string-path.alt {
+            stroke-dasharray: 1000;
+            animation-duration: 10s;
+        }
+
+        .string-path.dark { stroke: rgba(255,255,255,0.35); }
+        .string-path.stats { stroke: rgba(255,255,255,0.5); }
+
+        .panel-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+            font-weight: 600;
+            letter-spacing: -0.03em;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: color 0.2s;
         }
 
         /* --- Navigation --- */
@@ -55,24 +152,29 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+        }
+
+        main {
+            padding-top: 60px;
         }
 
         .logo {
             font-size: 1.5rem;
-            font-weight: 800;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
         }
 
         .logo-box {
             background: white;
             color: var(--primary);
             padding: 2px 6px;
-            font-family: 'Space Grotesk';
             border-radius: 2px;
         }
 
@@ -101,36 +203,45 @@
         }
 
         /* --- Hero Section --- */
-        .hero {
-            padding: 3rem 5% 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        .hero.panel {
+            padding: 6rem 5% 4rem;
+        }
+
+        .hero .panel-inner {
+            max-width: 1100px;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            max-width: 900px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            max-width: 24ch;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.0625rem;
             color: var(--text-light);
-            max-width: 700px;
-            margin-bottom: 1.5rem;
-            font-weight: 300;
+            max-width: 52ch;
+            line-height: 1.75;
         }
 
-        /* --- Carousel (Simple & Elegant) --- */
+        /* --- Carousel --- */
+        .carousel-panel.panel {
+            padding: 0;
+            min-height: 100vh;
+            opacity: 1;
+            transform: none;
+        }
+
         .carousel-container {
+            position: relative;
+            z-index: 1;
             width: 100%;
-            height: 500px;
+            height: 100vh;
+            min-height: 400px;
             background: #000;
             position: relative;
             overflow: hidden;
-            border-radius: 4px; /* YC isn't big on round corners, but subtle is good */
-            margin-bottom: 4rem;
         }
 
         .slide {
@@ -162,37 +273,25 @@
         .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80'); }
         .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1531545514256-b1400bc00f31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80'); }
 
-        /* --- Manifesto / Mission (Text Heavy) --- */
-        .mission-grid {
+        /* --- Mission --- */
+        .mission-grid .panel-inner {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
-            max-width: 1200px;
-            margin: 0 auto 6rem;
-            padding: 0 5%;
+            width: 100%;
+            max-width: 1100px;
         }
 
         .mission-text h2 {
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            position: relative;
-            padding-top: 1rem;
-        }
-
-        .mission-text h2::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 40px;
-            height: 4px;
-            background: var(--text-main);
         }
 
         .mission-text p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
             color: #333;
+            line-height: 1.75;
         }
 
         .stat-box {
@@ -204,37 +303,43 @@
 
         .stat-number {
             font-size: 3.5rem;
-            font-weight: 800;
-            font-family: 'Space Grotesk';
+            font-weight: 700;
             color: var(--primary);
         }
         
-        /* --- Timeline / Process --- */
-        .timeline-section {
+        /* --- Process --- */
+        .timeline-section.panel {
             background: #fff;
-            padding: 6rem 5%;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-section .panel-inner {
+            max-width: 1100px;
         }
 
         .section-header {
-            max-width: 1200px;
-            margin: 0 auto 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .section-header p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
         }
 
         .timeline-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .timeline-card {
-            padding-right: 2rem;
+            padding-right: 1.5rem;
             border-left: 2px solid var(--border);
-            padding-left: 1.5rem;
-            transition: border-color 0.3s;
+            padding-left: 1.25rem;
         }
 
         .timeline-card:hover {
@@ -243,130 +348,134 @@
 
         .step-phase {
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 0.8rem;
+            letter-spacing: 0.06em;
+            font-size: 0.75rem;
+            font-weight: 600;
             color: var(--text-light);
             margin-bottom: 0.5rem;
             display: block;
         }
 
         .step-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
         }
 
-        /* --- Mentors (Simple Grid) --- */
-        .mentors-section {
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 0 5%;
+        .timeline-card p {
+            font-size: 0.9375rem;
+            color: #555;
+            line-height: 1.65;
+        }
+
+        /* --- Mentors --- */
+        .mentors-section .panel-inner {
+            max-width: 1100px;
+        }
+
+        .mentors-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mentors-section > p {
+            font-size: 0.9375rem;
+            color: var(--text-light);
         }
 
         .mentor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .mentor-card {
             background: white;
             border: 1px solid var(--border);
             padding: 1.5rem;
-            text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: all 0.2s;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
         }
 
         .mentor-card:hover {
             border-color: var(--primary);
             box-shadow: 0 4px 12px rgba(128, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .mentor-card:hover::after {
-            content: 'Click to learn more';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary);
-            color: white;
-            padding: 4px 8px;
-            font-size: 0.7rem;
-            border-radius: 3px;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            animation: fadeInTab 0.2s ease;
-        }
-
-        @keyframes fadeInTab {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .mentor-avatar {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
-            margin: 0 auto 1rem;
             object-fit: cover;
-            border: 2px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .mentor-card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mentor-card-header {
+            margin-bottom: 0;
+        }
+
+        .mentor-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
         }
 
         .mentor-title {
             font-size: 0.85rem;
             color: var(--text-light);
-            margin-top: 0.25rem;
         }
 
         .mentor-details {
             display: none;
             text-align: left;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
             border-top: 1px solid var(--border);
-            animation: fadeIn 0.3s ease;
+            width: 100%;
         }
 
         .mentor-details.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .mentor-details h4 {
-            font-size: 1rem;
-            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
             color: var(--primary);
         }
 
         .mentor-details p {
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 0.9375rem;
+            line-height: 1.65;
             color: #555;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .mentor-details ul {
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             color: #666;
-            line-height: 1.7;
-            padding-left: 1.2rem;
+            line-height: 1.6;
+            padding-left: 1.25rem;
         }
 
         .mentor-details ul li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.375rem;
         }
 
         .mentor-linkedin {
             display: inline-block;
             margin-top: 0.5rem;
-            color: var(--primary);
             font-size: 0.85rem;
+            color: var(--primary);
             text-decoration: underline;
         }
 
@@ -379,7 +488,6 @@
             margin-left: 0.5rem;
             color: var(--primary);
             font-size: 0.85rem;
-            font-weight: 600;
         }
 
         /* Modal/Popup Styles */
@@ -406,8 +514,8 @@
 
         .modal-content {
             background: white;
-            border-radius: 8px;
-            max-width: 600px;
+            border-radius: 6px;
+            max-width: 560px;
             width: 90%;
             max-height: 85vh;
             position: relative;
@@ -425,17 +533,16 @@
             top: 1rem;
             right: 1rem;
             background: white;
-            border: 2px solid var(--border);
+            border: 1px solid var(--border);
             width: 36px;
             height: 36px;
-            border-radius: 50%;
+            border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: #666;
-            transition: all 0.2s;
             z-index: 1;
         }
 
@@ -443,7 +550,6 @@
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-            transform: rotate(90deg);
         }
 
         .modal-body {
@@ -453,17 +559,17 @@
         }
 
         .modal-body h2 {
-            font-size: 1.75rem;
+            font-size: 1.375rem;
             margin-bottom: 0.75rem;
             color: var(--primary);
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         .modal-body p {
-            line-height: 1.6;
+            line-height: 1.7;
             color: #555;
             margin-bottom: 0.75rem;
-            font-size: 0.95rem;
+            font-size: 0.9375rem;
         }
 
         .modal-body ul {
@@ -482,24 +588,32 @@
             padding: 0.75rem 1.5rem;
             border-radius: 4px;
             font-weight: 600;
+            font-size: 0.9375rem;
             margin-top: 0.5rem;
-            transition: background 0.2s;
         }
 
         .modal-cta:hover {
             background: var(--primary-dark);
         }
 
-        /* --- FAQ (Accordion) --- */
+        /* --- FAQ --- */
         .faq-section {
             background: #fff;
-            border-top: 1px solid var(--border);
-            padding: 6rem 5%;
+            padding: 4rem 5%;
         }
 
         .faq-container {
-            max-width: 800px;
+            max-width: 1100px;
             margin: 0 auto;
+        }
+
+        .faq-section.panel .panel-inner {
+            max-width: 1100px;
+        }
+
+        .faq-container h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .faq-item {
@@ -507,113 +621,95 @@
         }
 
         .faq-question {
-            padding: 1.5rem 0;
-            font-size: 1.2rem;
-            font-weight: 600;
+            padding: 1.25rem 0;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .faq-answer {
-            padding-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
             color: var(--text-light);
             display: none;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 0.9375rem;
         }
 
         .faq-item.active .faq-answer { display: block; }
-        .faq-item.active .faq-question { color: var(--primary); }
+        .faq-item.active .faq-question { color: var(--primary); font-weight: 600; }
 
-        /* Highlighted FAQ Item */
         .faq-item.highlighted {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            padding: 0 1.5rem;
-            margin: 1rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .faq-item.highlighted::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 30%,
-                rgba(128, 0, 0, 0.1) 50%,
-                transparent 70%
-            );
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            background: #fff5f5;
+            padding: 0 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            border: 1px solid var(--primary);
         }
 
         .faq-item.highlighted .faq-question {
-            font-weight: 700;
-            color: var(--primary);
+            font-weight: 600;
         }
 
-        /* --- Apply Section (Critical Workflow) --- */
-        .apply-section {
+        /* --- Apply --- */
+        .apply-section.panel {
             background: var(--bg);
-            padding: 6rem 5%;
             text-align: center;
         }
 
-        .apply-box {
-            max-width: 700px;
+        .apply-section .panel-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .apply-section .apply-box {
+            max-width: 480px;
             margin: 0 auto;
             background: white;
             border: 1px solid var(--border);
-            padding: 3rem;
-            position: relative;
+            padding: 2.5rem;
         }
 
         .status-badge {
-            background: #FFF5F5;
-            color: #C53030;
-            padding: 0.5rem 1rem;
-            font-weight: 700;
+            background: #fef2f2;
+            color: #991b1b;
+            padding: 0.375rem 0.75rem;
+            font-weight: 600;
+            font-size: 0.8125rem;
             display: inline-block;
-            margin-bottom: 2rem;
-            border: 1px solid #FC8181;
+            margin-bottom: 1.5rem;
         }
 
         .form-row {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             text-align: left;
         }
 
         .form-row label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
+            margin-bottom: 0.375rem;
+            font-weight: 500;
+            font-size: 0.875rem;
         }
 
         .form-input {
             width: 100%;
-            padding: 0.8rem;
+            padding: 0.75rem;
             border: 1px solid var(--border);
             background: #fafafa;
             font-family: inherit;
+            font-size: 1rem;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 1rem;
+            padding: 0.875rem;
             background: #ccc;
             border: none;
-            font-weight: 700;
+            font-weight: 600;
             cursor: not-allowed;
             color: #666;
             margin-top: 1rem;
@@ -623,22 +719,28 @@
         footer {
             background: #111;
             color: #888;
-            padding: 4rem 5%;
-            font-size: 0.9rem;
+            padding: 3rem 5%;
+            font-size: 0.875rem;
         }
-        
+
         .footer-content {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
         }
 
+        @media (max-width: 900px) {
+            .timeline-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .mission-grid { grid-template-columns: 1fr; }
+            .string-decoration { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .mission-grid .panel-inner { grid-template-columns: 1fr; }
             .timeline-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
+            .mentor-card { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -666,7 +768,7 @@
                 <p style="font-style: italic; color: var(--primary);">Open to students from any school, anywhere in the world.</p>
                 
                 <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfu87N86RchmfND2tORDnueXqh1cN0EnjKcK9W4AgDTkCfAyw/viewform?usp=publish-editor" target="_blank" class="modal-cta" style="background: var(--primary);">Apply for Spring 2026 Online Cohort →</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfu87N86RchmfND2tORDnueXqh1cN0EnjKcK9W4AgDTkCfAyw/viewform?usp=publish-editor" target="_blank" class="modal-cta">Apply for Spring 2026 Online Cohort →</a>
                     <a href="#online" class="modal-cta" onclick="closeModal()" style="background: var(--accent);">Learn More →</a>
                 </div>
             </div>
@@ -680,11 +782,8 @@
             HTSI
         </a>
         <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#process">Process</a>
             <a href="#mentors">People</a>
             <a href="#" onclick="openModal(); return false;">Online Cohort</a>
-            <a href="#faq">FAQ</a>
             <a href="/live">Live</a>
             <a href="#apply" class="cta-button">Apply</a>
         </div>
@@ -694,13 +793,26 @@
     <main>
         
         <!-- Hero -->
-        <section class="hero">
-            <h1>Building the next generation of<br>High Tech founders.</h1>
-            <p>We connect engineering students with the resources, mentorship, and capital to turn required research into real world startups.</p>
+        <section class="panel hero" id="hero">
+            <div class="string-decoration">
+                <svg class="string-svg" viewBox="0 0 200 400" preserveAspectRatio="none">
+                    <path class="string-path" d="M 80 0 C 120 40 140 80 110 120 C 70 160 50 140 70 100 C 90 60 130 80 100 140 C 60 200 90 240 110 200 C 140 150 120 220 100 280 C 80 330 100 370 90 400" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <div class="panel-inner">
+                <h1>Building the next generation of<br>High Tech founders.</h1>
+                <p>We connect engineering students with the resources, mentorship, and capital to turn required research into real world startups.</p>
+            </div>
         </section>
 
         <!-- Carousel -->
-        <div class="carousel-container">
+        <section class="panel carousel-panel">
+            <div class="string-decoration">
+                <svg class="string-svg" viewBox="0 0 200 400" preserveAspectRatio="none">
+                    <path class="string-path dark alt" d="M 90 0 C 130 50 150 100 120 150 C 80 200 60 180 80 140 C 100 100 140 120 110 180 C 70 240 90 280 110 250 C 140 200 120 300 100 350 C 85 380 95 400 90 400" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="carousel-container">
             <div class="slide active">
                 <div class="slide-caption">
                     <h3>Innovation at High Tech</h3>
@@ -719,11 +831,17 @@
                     <p>Presenting research to industry leaders.</p>
                 </div>
             </div>
-        </div>
+            </div>
+        </section>
 
         <!-- First Batch Stats Banner -->
-        <section style="background: var(--primary); color: white; padding: 3rem 5%; text-align: center; margin-bottom: 4rem;">
-            <div style="max-width: 1200px; margin: 0 auto;">
+        <section class="panel" id="stats" style="background: var(--primary); color: white; padding: 3rem 5%; text-align: center; justify-content: center;">
+            <div class="string-decoration">
+                <svg class="string-svg" viewBox="0 0 200 400" preserveAspectRatio="none">
+                    <path class="string-path stats" d="M 100 0 C 140 60 160 110 130 160 C 90 210 70 190 90 150 C 110 110 150 130 120 190 C 80 250 100 290 120 260 C 150 220 130 320 110 370 C 100 395 105 400 100 400" stroke-width="2"/>
+                </svg>
+            </div>
+            <div style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;">
                 <p style="text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; opacity: 0.8; margin-bottom: 0.5rem;">Batch 1 (Spring 2026)</p>
                 <div style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; font-family: 'Space Grotesk'; line-height: 1;">8%</div>
                 <p style="font-size: 1.2rem; margin-top: 1rem; font-weight: 500;">Acceptance Rate</p>
@@ -732,7 +850,13 @@
         </section>
 
         <!-- Mission -->
-        <section id="about" class="mission-grid">
+        <section id="about" class="panel mission-grid">
+            <div class="string-decoration">
+                <svg class="string-svg" viewBox="0 0 200 400" preserveAspectRatio="none">
+                    <path class="string-path alt" d="M 70 0 C 110 50 130 100 100 150 C 60 200 50 170 70 130 C 90 90 130 100 100 160 C 60 220 80 260 100 240 C 130 210 120 290 100 330 C 85 365 90 400 90 400" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <div class="panel-inner">
             <div class="mission-text">
                 <h2>Why HTSI?</h2>
                 <p>High Technology High School is a school full of entrepreneurs. However, the gap between academic research and viable business is often too wide for students to cross alone.</p>
@@ -750,44 +874,61 @@
                     <p>A completely student-run initiative supported by faculty and alumni.</p>
                 </div>
             </div>
+            </div>
         </section>
 
         <!-- Timeline -->
-        <section id="process" class="timeline-section">
+        <section id="process" class="panel timeline-section">
+            <div class="string-decoration">
+                <svg class="string-svg" viewBox="0 0 200 400" preserveAspectRatio="none">
+                    <path class="string-path" d="M 90 0 C 130 50 140 100 110 150 C 80 200 70 170 90 130 C 115 85 145 100 120 160 C 90 220 100 260 115 235 C 140 200 125 285 105 335 C 90 375 95 400 95 400" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <div class="panel-inner">
             <div class="section-header">
                 <h2>The Process</h2>
-                <p style="font-size: 1.2rem; color: #666; margin-top: 1rem;">From Research Paper and Project to Product Launch.</p>
+                <p>From Research Paper and Project to Product Launch.</p>
             </div>
             <div class="timeline-grid">
                 <div class="timeline-card">
                     <span class="step-phase">Phase 01</span>
                     <h3 class="step-title">Application & Interview</h3>
-                    <p style="color: #555;">Submit your research proposal. Selected applicants undergo a comprehensive and thorough interview process to test technical feasibility and market understanding.</p>
+                    <p>Submit your research proposal. Selected applicants undergo a comprehensive and thorough interview process to test technical feasibility and market understanding.</p>
                 </div>
                 <div class="timeline-card">
                     <span class="step-phase">Phase 02</span>
                     <h3 class="step-title">Incubation</h3>
-                    <p style="color: #555;">Weekly meetings, mentor sessions, and build sprints. You focus on building; we focus on removing obstacles and providing guidance.</p>
+                    <p>Weekly meetings, mentor sessions, and build sprints. You focus on building; we focus on removing obstacles and providing guidance.</p>
                 </div>
                 <div class="timeline-card">
                     <span class="step-phase">Phase 03</span>
                     <h3 class="step-title">Launch</h3>
-                    <p style="color: #555;">The program concludes with a showcase where you present your working prototype and business model to the HTSI community with support from members from the UN, FAANG, top startups and beyond.</p>
+                    <p>The program concludes with a showcase where you present your working prototype and business model to the HTSI community with support from members from the UN, FAANG, top startups and beyond.</p>
                 </div>
+            </div>
             </div>
         </section>
 
         <!-- Mentors -->
-        <section id="mentors" class="mentors-section">
+        <section id="mentors" class="panel mentors-section">
+            <div class="string-decoration">
+                <svg class="string-svg" viewBox="0 0 200 400" preserveAspectRatio="none">
+                    <path class="string-path alt" d="M 80 0 C 120 55 150 110 115 165 C 75 220 55 195 75 155 C 95 115 135 135 110 195 C 80 255 95 295 115 270 C 145 235 125 315 105 360 C 90 390 92 400 95 400" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <div class="panel-inner">
             <h2>Mentors</h2>
-            <p style="color: #666; margin-top: 0.5rem; max-width: 600px;">Our mentors include HTHS alumni, industry engineers, and successful founders. Click to learn more.</p>
+            <p style="margin-top: 0.5rem; max-width: 52ch;">Our mentors include HTHS alumni, industry engineers, and successful founders. Click to learn more.</p>
             
             <div class="mentor-grid">
                 <!-- Ethan Yip -->
                 <div class="mentor-card" onclick="toggleMentor(this)">
                     <img src="ethan.jpeg" alt="Ethan Yip" class="mentor-avatar">
-                    <h4>Ethan Yip<span class="expand-indicator">+</span></h4>
-                    <p class="mentor-title">Co-founder @ Celestify | VC in Residence @ Lvlup ($300M AUM)</p>
+                    <div class="mentor-card-content">
+                        <div class="mentor-card-header">
+                            <h4>Ethan Yip<span class="expand-indicator">+</span></h4>
+                            <p class="mentor-title">Co-founder @ Celestify | VC in Residence @ Lvlup ($300M AUM)</p>
+                        </div>
                     
                     <div class="mentor-details">
                         <h4>About</h4>
@@ -806,13 +947,17 @@
                         
                         <a href="https://www.linkedin.com/in/yip-ethan/" target="_blank" class="mentor-linkedin">View LinkedIn Profile →</a>
                     </div>
+                    </div>
                 </div>
 
                 <!-- Ayden Pinto -->
                 <div class="mentor-card" onclick="toggleMentor(this)">
                     <img src="pinto.png" alt="Ayden Pinto" class="mentor-avatar">
-                    <h4>Ayden Pinto<span class="expand-indicator">+</span></h4>
-                    <p class="mentor-title">Student Leader | Finance & Operations Specialist</p>
+                    <div class="mentor-card-content">
+                        <div class="mentor-card-header">
+                            <h4>Ayden Pinto<span class="expand-indicator">+</span></h4>
+                            <p class="mentor-title">Student Leader | Finance & Operations Specialist</p>
+                        </div>
                     
                     <div class="mentor-details">
                         <h4>About</h4>
@@ -830,13 +975,17 @@
                         
                         <a href="https://www.linkedin.com/in/ayden-pinto-0b851230a/" target="_blank" class="mentor-linkedin">View LinkedIn Profile →</a>
                     </div>
+                    </div>
                 </div>
 
                 <!-- Henry Griffith -->
                 <div class="mentor-card" onclick="toggleMentor(this)">
                     <img src="henry.jpeg" alt="Henry Griffith" class="mentor-avatar">
-                    <h4>Henry Griffith<span class="expand-indicator">+</span></h4>
-                    <p class="mentor-title">Co-Founder @ Coffee Pod Recycling Co.</p>
+                    <div class="mentor-card-content">
+                        <div class="mentor-card-header">
+                            <h4>Henry Griffith<span class="expand-indicator">+</span></h4>
+                            <p class="mentor-title">Co-Founder @ Coffee Pod Recycling Co.</p>
+                        </div>
                     
                     <div class="mentor-details">
                         <h4>About</h4>
@@ -855,12 +1004,20 @@
                         
                         <a href="https://www.linkedin.com/in/henry-griffith-b22789318/" target="_blank" class="mentor-linkedin">View LinkedIn Profile →</a>
                     </div>
+                    </div>
                 </div>
+            </div>
             </div>
         </section>
 
         <!-- FAQ -->
-        <section id="faq" class="faq-section">
+        <section id="faq" class="panel faq-section">
+            <div class="string-decoration">
+                <svg class="string-svg" viewBox="0 0 200 400" preserveAspectRatio="none">
+                    <path class="string-path" d="M 85 0 C 125 55 145 105 115 160 C 80 215 65 185 85 145 C 105 105 145 125 115 185 C 80 245 95 285 115 260 C 145 225 130 310 108 355 C 92 390 88 400 92 400" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <div class="panel-inner">
             <div class="faq-container">
                 <h2 style="margin-bottom: 2rem;">Frequently Asked Questions</h2>
                 
@@ -900,10 +1057,17 @@
                 </div>
 
             </div>
+            </div>
         </section>
 
         <!-- Apply -->
-        <section id="apply" class="apply-section">
+        <section id="apply" class="panel apply-section">
+            <div class="string-decoration">
+                <svg class="string-svg" viewBox="0 0 200 400" preserveAspectRatio="none">
+                    <path class="string-path alt" d="M 95 0 C 135 55 155 105 120 165 C 80 225 65 200 85 160 C 105 120 145 140 115 200 C 80 260 95 300 115 275 C 145 240 125 325 105 370 C 92 395 98 400 95 400" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <div class="panel-inner">
             <div class="apply-box">
                 <div class="status-badge">APPLICATIONS CLOSED</div>
                 <h2>Apply to HTSI</h2>
@@ -921,6 +1085,7 @@
                     <button class="submit-btn" disabled>Apply Now</button>
                     <p style="margin-top: 1rem; font-size: 0.8rem; color: #888;">Applications are currently hidden. Check back later.</p>
                 </form>
+            </div>
             </div>
         </section>
 
@@ -1008,6 +1173,21 @@
         window.addEventListener('load', () => {
             setTimeout(openModal, 500);
         });
+
+        // Panel enter animation (Intersection Observer)
+        const panels = document.querySelectorAll('.panel');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px' });
+
+        panels.forEach(panel => observer.observe(panel));
+
+        // Initial visible for first panel
+        if (panels.length) panels[0].classList.add('visible');
     </script>
 </body>
 </html>
